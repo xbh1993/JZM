@@ -13,23 +13,45 @@
 
 
         <div class="layui-form-item">
-            <label class="layui-form-label">公司名称</label>
+            <label class="layui-form-label">工厂名称</label>
             <div class="layui-input-block">
-                <input type="text" id="usern" value="{$cen.name}"  name="username" lay-verify="required|username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+                <input type="text" id="usern" value="{$cen.name}"  name="username" lay-verify="required|username" autocomplete="off" placeholder="请输入工厂名称" class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item">
-            <label class="layui-form-label">电话</label>
+            <label class="layui-form-label">新资标准</label>
             <div class="layui-input-block">
-                <input type="text" id="mobile" value="{$cen.mobile}" name="mobile" lay-verify="required|email" placeholder="请输入注册邮箱" autocomplete="off" class="layui-input">
+                <input type="text" id="wages" value="{$cen.wages}"  name="wages" lay-verify="required|username" autocomplete="off" placeholder="请输入新资标准" class="layui-input">
             </div>
         </div>
-
+        <div class="layui-form-item">
+            <label class="layui-form-label">工作时间</label>
+            <div class="layui-input-block">
+                <input type="text" id="times" value="{$cen.times}" name="times" lay-verify="required|email" placeholder="请输入工作时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更新时间</label>
+            <div class="layui-input-block">
+                <input type="text" id="update_time" value="{$cen.update_time}" name="update_time" lay-verify="required|email" placeholder="请输入更新时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+                <input type="text" id="create_time" value="{$cen.create_time}" name="create_time" lay-verify="required|email" placeholder="请输入更新时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">浏览人数</label>
+            <div class="layui-input-block">
+                <input type="text" id="views" value="{$cen.views}" name="views" lay-verify="required|email" placeholder="请输入浏览人数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">地址</label>
             <div class="layui-input-block">
-                <input type="text" id="address" value="{$cen.address}" name="address" lay-verify="required|email" placeholder="请输入注册邮箱" autocomplete="off" class="layui-input">
+                <input type="text" id="adress" value="{$cen.adress}" name="adress" lay-verify="required|email" placeholder="请输入地址" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -86,8 +108,8 @@
         ,field:'images'
         ,url: urlcc //上传接口
         ,done: function(res){
-           console.log(res);
-           $('#imgs').attr('src',res.data.url)
+            console.log(res);
+            $('#imgs').attr('src',res.data.url)
         }
         ,error: function(){
             //请求异常回调
