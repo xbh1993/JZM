@@ -3,6 +3,7 @@ namespace app\admin\controller;
 
 use \think\Db;
 use \think\Reuquest;
+use  \app\common\controller\Main;
 class auth extends Main
 {
     function index(){

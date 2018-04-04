@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 
 use think\Db;
+use  \app\common\controller\Main;
 class FileSystem extends Main
 {
     // 上传页面展示

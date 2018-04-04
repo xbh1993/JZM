@@ -2,7 +2,7 @@
 namespace app\admin\controller;
 
 use think\Db;
-
+use  \app\common\controller\Main;
 class DbManage extends Main
 {
   //数据库维护页面展示 

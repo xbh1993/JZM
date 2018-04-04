@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\controller;
-
+use  \app\common\controller\Main;
 class Index extends Main
 {  
     /**
