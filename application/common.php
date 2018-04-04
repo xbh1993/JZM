@@ -282,8 +282,8 @@ function lotus_set_option($key, $data, $replace = false)
     cache('cmf_options_' . $key, null);//删除缓存
     return true;
 }
+function json_code($code,$msg='success',$data=[]){
+          $arr=['code'=>$code,'msg'=>$msg,'data'=>$data];
+          return exit(json_encode($arr));
 
-function json_code($code=0,$msg="",$data=[]){
-    $arr=['code'=>$code,'msg'=>$msg,'data'=>$data];
-    return exit(json_encode($arr));
 }

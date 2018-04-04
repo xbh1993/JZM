@@ -16,7 +16,7 @@ header {
                     用户角色
                 </label>
                 <div class="layui-input-block">
-                    <select lay-filter="aihao" name="group_id" id='group_id'>
+                    <select lay-filter="aihao" name="group_id" id='group_id' >
                         </option>
                          {volist name='auth_group' id='vo'}
                                 <option value="{$vo.id}">{$vo.title}</option>
@@ -71,6 +71,7 @@ header {
 <script type="text/javascript">
 		var form = layui.form;
 		var layer = layui.layer;
+		var element=layui.element;
 			  //自定义验证规则
 			  form.verify({
 			    username: function(value){
@@ -79,6 +80,8 @@ header {
 			      }
 			    }
 			  });
+
+
 		//监听提交
 		form.on('submit(demo1)', function(data){
 		      layer.alert(JSON.stringify(data.field), {

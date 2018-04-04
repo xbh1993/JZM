@@ -7,47 +7,35 @@
 
 </style>
 
+
 <div class="x-body" >
     <form class="layui-form" id='mainForm' method="post" action="addUser">
 
-
-
         <div class="layui-form-item">
-            <label class="layui-form-label">公司名称</label>
+            <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-                <input type="text" id="usern" value="{$cen.name}"  name="username" lay-verify="required|username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+                <input type="text" id="username"  name="username" lay-verify="required|username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">电话</label>
+            <label class="layui-form-label">邮&nbsp;&nbsp;&nbsp;箱</label>
             <div class="layui-input-block">
-                <input type="text" id="mobile" value="{$cen.mobile}" name="mobile" lay-verify="required|email" placeholder="请输入注册邮箱" autocomplete="off" class="layui-input">
+                <input type="text" id="email" name="email" lay-verify="required|email" placeholder="请输入注册邮箱" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">地址</label>
+            <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;码</label>
             <div class="layui-input-block">
-                <input type="text" id="address" value="{$cen.address}" name="address" lay-verify="required|email" placeholder="请输入注册邮箱" autocomplete="off" class="layui-input">
+                <input type="password" id="password"  name="password" lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">轮播图</label>
+            <label class="layui-form-label">确&nbsp;&nbsp;&nbsp;认</label>
             <div class="layui-input-block">
-                <button type="button" class="layui-btn" id="test1">
-                    <i class="layui-icon">&#xe67c;</i>上传图片
-                </button>
-                <img src="" style="width:150px;height:150px" id="imgs">
-
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">公司详情</label>
-            <div class="layui-input-block">
-                <textarea id="text" name="text" class="layui-textarea"> {$cen.text}</textarea>
+                <input type="password"  id="check_password"  name="check_password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -69,29 +57,20 @@
 <script type="text/javascript">
     var form = layui.form;
     var layer = layui.layer;
-    var upload=layui.upload;
     //自定义验证规则
-
+    form.verify({
+        username: function(value){
+            if(value.length < 5){
+                return '用户名至少得5个字符啊';
+            }
+        }
+    });
     //监听提交
     form.on('submit(demo1)', function(data){
         layer.alert(JSON.stringify(data.field), {
             title: '最终的提交信息'
         })
         return false;
-    });
-    //执行实例var
-    var urlcc="{:url('common/upload/uploadimg')}"
-    var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
-        ,field:'images'
-        ,url: urlcc //上传接口
-        ,done: function(res){
-           console.log(res);
-           $('#imgs').attr('src',res.data.url)
-        }
-        ,error: function(){
-            //请求异常回调
-        }
     });
 
     $(document).ready(function(){

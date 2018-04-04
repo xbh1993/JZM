@@ -1,0 +1,170 @@
+{include file='public/head'}
+<body>
+<style type="text/css" media="screen">
+    header {
+        color: black;
+    }
+    .divs{
+        float: left;
+        margin-left: 10px;
+    }
+    .divs span{
+        display: block;
+        background-color: black;
+        color: white;
+        position: relative;
+        top:-20px;
+        line-height: 20px;
+        height: 20px;
+        text-align: center;
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
+</style>
+
+
+<div class="x-body">
+    <form class="layui-form" id='mainForm' method="post" action="showAdd">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                工厂名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="name" name="name" autocomplete="off" placeholder="请输入工厂名称" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">薪资标准</label>
+            <div class="layui-input-block">
+                <input type="text" id="wages" name="wages" autocomplete="off" placeholder="请输入薪资标准" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">轮播图</label>
+            <div class="layui-input-block" id="listimgs">
+                <button type="button" class="layui-btn" id="test1" style="float: left;">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">工作时间</label>
+            <div class="layui-input-block">
+                <input type="text" id="times" name="times" placeholder="请输入工作时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" id="test">地址</label>
+            <div class="layui-input-block">
+                <input type="text" id="address" name="address" placeholder="请输入地址" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">浏览人数</label>
+            <div class="layui-input-block">
+                <input type="text" id="views" name="views" placeholder="浏览人数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">详情介绍</label>
+            <div class="layui-input-block">
+                <textarea name="text" class="layui-textarea" placeholder="输入工厂的介绍详情"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button style="margin-left: 20%" class="layui-btn" lay-submit="" lay-filter="toSubmit">提交</button>
+                <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+</body>
+
+<script type="text/javascript">
+    var form = layui.form;
+    var layer = layui.layer;
+    var upload = layui.upload;
+    layui.use('upload', function () {
+        var upload = layui.upload;
+        //执行实例
+        var urls = "{:url('uploadimg')}"
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            , field: 'images'
+            ,multiple:true
+            , url: urls //上传接口
+            , done: function (res) {
+                console.log(res)
+                if(res.code==200){
+                    var html='<div class="divs">'+
+                        '<img src="'+res.data.url+'" style="width: 150px;height: 150px">'+
+                            '<input type="hidden" value="'+res.data.url+'" name="img_urls[]" >'+
+                        '<span class="item">删除</span>'+
+                        '</div>';
+                    $('#listimgs').append(html);
+                }
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+    });
+
+
+    //监听提交
+    form.on('submit(demo1)', function (data) {
+        layer.alert(JSON.stringify(data.field), {
+            title: '最终的提交信息'
+        })
+        return false;
+    });
+
+    $(document).ready(function () {
+        var options = {
+            type: 'post',           //post提交
+            //url:'http://ask.tongzhuo100.com/server/****.php?='+Math.random(),   //url
+            dataType: "json",        //json格式
+            data: {},    //如果需要提交附加参数，视情况添加
+            clearForm: false,        //成功提交后，清除所有表单元素的值
+            resetForm: false,        //成功提交后，重置所有表单元素的值
+            cache: false,
+            async: false,          //同步返回
+            success: function (data) {
+                console.log(data);
+                if (data.code == 0) {
+                    layer.msg(data.msg);
+                } else {
+                    layer.msg(data.msg, {icon: 1, time: 500}, function () {
+                        $("#reset").click();
+                        x_admin_close();
+                        parent.location.reload();
+                    });
+                }
+                //服务器端返回处理逻辑
+            },
+            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                layer.msg('操作失败:服务器处理失败');
+            }
+        };
+        // bind form using 'ajaxForm'
+        $('#mainForm').ajaxForm(options).submit(function (data) {
+            //无逻辑
+        });
+
+    });
+
+</script>
+{include file='public/foot'}
