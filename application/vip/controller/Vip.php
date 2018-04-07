@@ -7,9 +7,17 @@
  */
 namespace  app\vip\controller;
 use think\Controller;
+use think\Db;
 use  \app\common\controller\Main;
 class vip extends Main{
-    public function index(){
-        dump(1213);exit;
+    public function agent(){
+       $lists=Db::name('vip')->paginate(8);
+       $this->assign('lists',$lists);
+       return $this->fetch();
+    }
+    public function normalvip(){
+        $lists=Db::name('vip')->paginate(8);
+        $this->assign('lists',$lists);
+        return $this->fetch();
     }
 }
