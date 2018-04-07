@@ -1,0 +1,134 @@
+{include file="public/head"}
+<body>
+<div class="x-body">
+    <button class="layui-btn  layui-btn-small layui-btn-danger" onclick="delAll()">批量删除</button>
+    <button class="layui-btn layui-btn-small "
+            onclick="x_admin_shows('添加用户','showAdd.html','','',-5)"></i>新增工厂</button>
+    <button onclick="javascript:location.reload()" class="layui-btn layui-btn-small">刷新</button>
+    <span class="x-right" style="line-height:40px">共有数据:<i class="i_count">{$lists->total()}</i>条</span>
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <div class="header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>ID</th>
+            <th>工厂名称</th>
+            <th>薪资标准</th>
+            <th>工作时间</th>
+            <th>浏览人数</th>
+            <th>是否生效</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+
+        {volist name="lists" id="vo"}
+        <tr>
+            <td>
+                <div class="layui-form-checkbox" lay-skin="primary" data-id='{$vo.id}'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>{$vo.id}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.wages}</td>
+            <td>{$vo.times}</td>
+            <td>{$vo.views}</td>
+            <td>{if condition="$vo.types eq 1"}生效{else/}失效 {/if}</td>
+            <td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+            <td>{$vo.update_time|date="Y-m-d H:i:s",###}</td>
+            <td>
+                <button class="layui-btn layui-btn-mini" onclick="x_admin_shows('编辑用户','edit.html?id={$vo.id}','','',-5)">编辑</button>
+                <button onclick="delUser(this,{$vo.id})" class="layui-btn layui-btn-mini layui-btn-danger">删除</button>
+            </td>
+        </tr>
+        {/volist}
+
+        </tbody>
+    </table>
+    <div class="page">
+        <div>
+            {$lists->render()}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+
+
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            if($(obj).attr('title')=='启用'){
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+
+        });
+    }
+
+
+    function delAll (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认要全部删除吗？',function(index){
+            //捉到所有被选中的，发异步进行删除
+            $.post("{:url('factory/factory/delCompany')}", {data: data}, function(data, textStatus, xhr) {
+                if(data.code==0){
+                    layer.msg(data.msg,{icon:2,time:1000});
+                }else{
+                    layer.msg(data.msg,{icon:1,time:1000},function(){
+                        $(".layui-form-checked").not('.header').parents('tr').remove();
+                        $(".i_count").html(count-1);
+                    });
+                }
+
+            },'json');
+
+        });
+    }
+
+    function delUser(obj,id){
+        var count = $(".i_count")[0].innerText;
+        layer.confirm('确认要删除吗？',function(index){
+            //捉到所有被选中的，发异步进行删除
+            $.post("{:url('factory/factory/delCompany')}", {id: id}, function(data, textStatus, xhr) {
+                /*optional stuff to do after success */
+                console.log(data);
+                if(data.code==0){
+                    layer.msg(data.msg,{icon:2,time:1000});
+                }else{
+                    layer.msg(data.msg,{icon:1,time:1000},function(){
+                        $(obj).parents('tr').remove();
+                        $(".i_count").html(count-1);
+                    });
+                }
+
+            },'json');
+        });
+    }
+</script>
+{include file="public/foot"}

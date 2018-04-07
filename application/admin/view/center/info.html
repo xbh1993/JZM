@@ -12,12 +12,17 @@
 
 
 
+
+
         <div class="layui-form-item">
             <label class="layui-form-label">公司名称</label>
             <div class="layui-input-block">
                 <input type="text" id="usern" value="{$cen.name}"  name="username" lay-verify="required|username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+
             </div>
         </div>
+
+
 
         <div class="layui-form-item">
             <label class="layui-form-label">电话</label>
@@ -70,8 +75,7 @@
     var form = layui.form;
     var layer = layui.layer;
     var upload=layui.upload;
-    //自定义验证规则
-
+    //执行实例
     //监听提交
     form.on('submit(demo1)', function(data){
         layer.alert(JSON.stringify(data.field), {
