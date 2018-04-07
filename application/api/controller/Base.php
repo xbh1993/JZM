@@ -16,4 +16,7 @@ class Base extends Controller
     {
         halt(12131);
     }
+    public function addtest(){
+        halt(123);
+    }
 }
