@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\api\controller;
 
 use think\Controller;
 use think\Request;
@@ -14,10 +14,6 @@ class Base extends Controller
     */
     public function _initialize()
     {
-        $module = $this->request->module();
-        if (!lotus_is_installed() && $module != 'install') {
-            header('Location: ' . lotus_get_root() . '/?s=install');
-            exit;
-        }
+        halt(12131);
     }
 }

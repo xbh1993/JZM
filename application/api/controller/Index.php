@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\api\controller;
 
 use think\Request;
 
@@ -7,6 +7,7 @@ class Index extends Base{
 
     public function index()
     {
+        halt(1231);
       return $this->fetch();
     }
 
