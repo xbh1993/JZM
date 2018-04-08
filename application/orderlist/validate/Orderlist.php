@@ -2,12 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/4/7 0007
- * Time: 上午 11:49
+ * Date: 2018/4/8 0008
+ * Time: 下午 2:15
  */
-namespace  app\admin\validate;
-use  think\Validate;
-class Center extends Validate{
+namespace app\orderlist\validate;
+use think\Validate;
+class Orderlist extends Validate
+{
     protected $rule=[
         'name'=>'require|min:2|max:40',
         'mobile'=>'require|number|min:9|max:11',
