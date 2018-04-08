@@ -106,4 +106,8 @@ class factory extends Main
             }
         }
     }
+
+    public function getmap(){
+        return $this->fetch();
+    }
 }
