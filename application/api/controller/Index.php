@@ -20,5 +20,8 @@ class Index extends Base{
     	$post = $this->request->post();
     	return json($post);
     }
+    public  function  adddev(){
+        halt('新增dev分支');
+    }
     
 }

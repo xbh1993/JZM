@@ -8,7 +8,8 @@ class Company extends Validate{
         'times'=>'require',
         'address'=>'require',
         'img_urls'=>'require',
-        'text'=>'require'
+        'text'=>'require',
+        'location'=>'require|min:12'
     ];
     protected $message=[
         'name.require'=>'工厂名称不能为空',
@@ -18,6 +19,8 @@ class Company extends Validate{
         'times.require'=>'工作时间不能为空',
         'address.require'=>'地址不能为空',
         'img_urls.require'=>'轮播图不能为空',
-        'text.require'=>'详情介绍不能为空'
+        'text.require'=>'详情介绍不能为空',
+        'location.require'=>'地理位置不能为空',
+        'location.min'=>'地理位置参数错误'
     ];
 }

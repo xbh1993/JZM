@@ -73,10 +73,15 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label" id="test">地址</label>
-            <div class="layui-input-block">
-                <input type="text" id="address"  value="{$info.address|default=''}"  name="address" placeholder="请输入地址" autocomplete="off"
+            <div class="layui-input-inline">
+                <input type="text" id="address" readonly value="{$info.address|default=''}" style="width: 450px;" name="address" placeholder="请输入地址" autocomplete="off"
                        class="layui-input">
             </div>
+            <input type="hidden" value=""  name="location" {$info.loation|default=''} id="location">
+            <div class="layui-input-inline" style="margin-left: 300px">
+                <label onclick="getmap('getmap.html')"  class="layui-btn layui-btn-normal">地理位置拾取</label>
+            </div>
+
         </div>
 
         <div class="layui-form-item">
@@ -111,6 +116,26 @@
 
     function delimg(obj) {
         $(obj).parent().remove();
+    }
+
+    function setaddress(location, address) {
+        $('#address').val(address);
+        $('#location').val(location);
+    }
+
+    function getmap(url) {
+        var url = "{:url('getmap')}"
+        layer.open({
+            offset: 30 + 'px', //右下角弹出
+            type: 2,
+            area: [1000 + 'px', 600 + 'px'],
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade: 0.4,
+            title: '坐标拾取',
+            content: url
+        });
     }
 
     var form = layui.form;
