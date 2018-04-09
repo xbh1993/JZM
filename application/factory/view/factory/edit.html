@@ -77,7 +77,7 @@
                 <input type="text" id="address" readonly value="{$info.address|default=''}" style="width: 450px;" name="address" placeholder="请输入地址" autocomplete="off"
                        class="layui-input">
             </div>
-            <input type="hidden" value=""  name="location" {$info.loation|default=''} id="location">
+            <input type="hidden" value="{$info.location}"  name="location" {$info.loation|default=''} id="location">
             <div class="layui-input-inline" style="margin-left: 300px">
                 <label onclick="getmap('getmap.html')"  class="layui-btn layui-btn-normal">地理位置拾取</label>
             </div>

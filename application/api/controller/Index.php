@@ -41,6 +41,10 @@ class Index extends Base
     }
     public function  getcompany(){
         $info=Db::name('company')->select();
+        foreach ($info as $k=>$v){
+            $v['img_urls']=unserialize($v['img_urls']);
+            $info[$k]=$v;
+        }
         return json_code(0,'success',$info);
 
     }
