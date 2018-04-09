@@ -2,6 +2,7 @@
 namespace app\api\controller;
 
 use think\Request;
+use think\Db;
 
 class Index extends Base
 {
@@ -31,4 +32,22 @@ class Index extends Base
         }
     }
 
+    public function getindex(){
+        $info=Db::name('center')->where('id',1)->find();
+        $location=explode(',',$info['location']);
+       $info['latitude']=$location[0];
+        $info['longitude']=$location[1];
+        return json_code(0,'success',$info);
+    }
+    public function  getcompany(){
+        $info=Db::name('company')->select();
+        return json_code(0,'success',$info);
+
+    }
+    public function getcompanydetail(){
+        $data=request()->get();
+        $id=$data['id'];
+        $info=Db::name('company')->where('id',$id)->find();
+        return json_code(0,'success',$info);
+    }
 }
