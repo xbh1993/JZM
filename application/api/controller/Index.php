@@ -3,7 +3,6 @@ namespace app\api\controller;
 
 use think\Request;
 use think\Db;
-
 class Index extends Base
 {
 
@@ -25,8 +24,8 @@ class Index extends Base
             if(empty($d)) return json_code(0,'fail');
             $data=json_decode($d['data'],true);
             $arr=['nickName'=>$data['nickName'],'gender'=>$data['gender'],'avatarUrl'=>$data['avatarUrl'],'openid'=>$data['openid']];
-            if(!$info=Db::name('appuser')->where(['openid'=>$arr['openid']])->find()){
-                Db::name('appuser')->insert($arr);
+            if(!$info=Db::name('vip')->where(['openid'=>$arr['openid']])->find()){
+                Db::name('vip')->insert($arr);
             }
             return json_code(0,'success');
         }
@@ -35,6 +34,7 @@ class Index extends Base
     public function getindex(){
         $info=Db::name('center')->where('id',1)->find();
         $location=explode(',',$info['location']);
+        $info['img_url']=explode(',',$info['img_url']);
        $info['latitude']=$location[0];
         $info['longitude']=$location[1];
         return json_code(0,'success',$info);
@@ -49,5 +49,24 @@ class Index extends Base
         $id=$data['id'];
         $info=Db::name('company')->where('id',$id)->find();
         return json_code(0,'success',$info);
+    }
+
+    public function baoming(){
+        if(request()->isPost()){
+            $d=request()->post();
+            $data=json_decode($d['data'],true);
+           $validate=validate('Orderlist');
+           if(!$validate->check($data)){
+               $msg=$validate->getError();
+               return json_code(0,$msg);
+           }
+           try{
+               $data['create_time']=time();
+               Db::name('orderlist')->insert($data);
+               return json_code(1,'报名成功');
+           }catch (\Exception $e){
+               return json_code(0,'报名失败');
+           }
+        }
     }
 }

@@ -16,7 +16,6 @@ class Company extends Main
     public function infos(){
         $cen=Db::name('company')->find();
         $this->assign('cen',$cen);
-        dump($cen);
         return $this->fetch();
 
     }

@@ -12,5 +12,6 @@ Route::get('getcompany','api/index/getcompany');//获取工厂信息
 
 Route::get('getcompanydetail','api/index/getcompanydetail');//获取工厂信息
 
+Route::post('baoming','api/index/baoming');//报名
 
 
