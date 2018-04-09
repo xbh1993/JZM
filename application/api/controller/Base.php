@@ -14,9 +14,7 @@ class Base extends Controller
     */
     public function _initialize()
     {
-        halt(12131);
+       $str='ok';
     }
-    public function addtest(){
-        halt(123);
-    }
+
 }
